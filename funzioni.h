@@ -32,11 +32,14 @@ struct Evento{
     double exit_x, exit_y, exit_z;
     double exit_time;
     double quality;
+    double distance;
 };
 
 vector<Evento> load_data(const string&);
+vector<Evento> load_good_data(const string&);
 void print_all_data(const vector<Evento>&);
 double efficiency(const vector<Evento>&);
+double calculate_distance(const Evento&);
 
 
 
