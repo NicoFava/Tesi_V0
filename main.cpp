@@ -52,10 +52,11 @@ int main(int argc, char* argv[]) {
     charge.SetTitle("Distribuzione del valore della carica");
     charge.GetXaxis()->SetTitle("Charge [p.e.]");
     charge.GetYaxis()->SetTitle("Conteggi [a.u.]");
+    charge.SetStats(1);
     charge.Draw();
+    gPad->Update();
     TCanvas canz("Distribuzione dei Punti di Entrata vs Angolo di Zenith", "Distribuzione dei Punti di Entrata vs Angolo di Zenith" );
     canz.cd();
-    Zenith.SetStats(1);
     Zenith.SetLineColor(kBlue);
     Zenith.SetLineWidth(2);
     Zenith.SetFillColorAlpha(kBlue, 0.3);
@@ -66,18 +67,15 @@ int main(int argc, char* argv[]) {
     Zenith.GetYaxis()->SetTitleSize(0.04);
     Zenith.GetXaxis()->SetRangeUser(0, 180);
     gPad->SetGrid();
-
-    TLegend *leg = new TLegend(0.7,0.7,0.9,0.9);
-    leg->AddEntry(&Zenith, "Distribuzione Zenith", "l");
-    leg->Draw();
-
     canz.SetLeftMargin(0.12);
     canz.SetBottomMargin(0.12);
     canz.SetGrid();
     //Zenith.SetTitle("Punti di entrata vs Zenith");
     //Zenith.GetXaxis()->SetTitle("Cos#theta");
     //Zenith.GetYaxis()->SetTitle("Conteggi [a.u.]");
+    Zenith.SetStats(1);
     Zenith.Draw();
+    gPad->Update();
     print_all_data(good_eventi);
     double efficienza = efficiency(eventi)*100;
     cout << "L'efficienza di rivelazione è del " << efficienza <<"%." << endl;
