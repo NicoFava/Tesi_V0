@@ -19,6 +19,9 @@
 #include "TAxis.h"
 #include "TH2.h"
 #include "TF1.h"
+#include "TGraph2D.h"
+#include "TStyle.h"
+#include "TColor.h"
 
 using namespace std;
 struct Evento{
@@ -40,6 +43,7 @@ vector<Evento> load_good_data(const string&);
 void print_all_data(const vector<Evento>&);
 double efficiency(const vector<Evento>&);
 double calculate_distance(const Evento&);
+void plot_3D_distribution(const vector<Evento>&);
 
 
 

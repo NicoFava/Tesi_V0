@@ -141,3 +141,30 @@ double calculate_distance(const Evento& e){
     
     return sqrt(dx * dx + dy * dy + dz * dz);
 }
+
+void plot_3D_distribution(const vector<Evento>& eventi){
+    TCanvas *c3D = new TCanvas("c3D", "Distribuzione 3D dei punti di entrata", 800, 800);
+    TGraph2D *g3D = new TGraph2D();
+
+    for (const auto &e : eventi) {
+        double x = e.entry_x;
+        double y = e.entry_y;
+        double z = e.entry_z;
+        g3D->SetPoint(g3D->GetN(), x, y, z);
+    }
+
+    // Stile e visualizzazione
+    gStyle->SetPalette(kRainBow);
+    gStyle->SetOptStat(0);
+    g3D->SetTitle("Distribuzione 3D dei punti di entrata");
+    g3D->SetMarkerStyle(21);
+    g3D->SetMarkerSize(1.1);
+    g3D->Draw("PCOL");
+
+    // Titoli assi
+    g3D->GetXaxis()->SetTitle("X [mm]");
+    g3D->GetYaxis()->SetTitle("Y [mm]");
+    g3D->GetZaxis()->SetTitle("Z [mm]");
+
+    c3D->Update();
+}

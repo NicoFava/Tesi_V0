@@ -31,14 +31,22 @@ int main(int argc, char* argv[]) {
     //dagli eventi veri voglio capire quanti bundle ci sono.
     int bundle = 0;
     string last_timestamp = "";  // Memorizza l'ultimo timestamp visto
-    
+    //conta i bundle
     for (const auto& e : good_eventi) {
         if (e.trackID > 0 && e.timestamp != last_timestamp) {
             last_timestamp = e.timestamp;  // Aggiorna il timestamp visto
             bundle++;  // Conta il bundle solo una volta per timestamp unico
         }
     }
-    
+    //conta gli eventi singoli (contando una singola volta i bundle)
+    int muoni = 0;
+    last_timestamp = "";
+    for (const auto& e : good_eventi) {
+        if ( e.timestamp != last_timestamp) {
+            last_timestamp = e.timestamp; 
+            muoni++;
+        }
+    }
     TCanvas can("Distribuzione del valore della carica", "Distribuzione del calore della carica");
     can.cd();
     charge.SetTitle("Distribuzione del valore della carica");
@@ -73,8 +81,8 @@ int main(int argc, char* argv[]) {
     print_all_data(good_eventi);
     double efficienza = efficiency(eventi)*100;
     cout << "L'efficienza di rivelazione è del " << efficienza <<"%." << endl;
-    cout << "Il numero di muoni bundle (>2) sono: " << bundle << " e rappresentano il " <<(double)bundle/good_eventi.size()*100<< "% degli eventi buoni (entrata e uscita ricostruita)" << endl;
+    cout << "Il numero di muoni bundle (muoni per traccia>2) sono: " << bundle << " e rappresentano il " <<(double)bundle/muoni*100<< "\% degli eventi buoni (entrata e uscita ricostruita)" << endl;
+    plot_3D_distribution(good_eventi);
     app.Run();
     return 0;
-
 }
